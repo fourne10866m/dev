@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+  <link rel="stylesheet" href="sortable.css">
+  <script defer src="sortable.js"></script>
+
+
+<style>
+div.test {
+  width: 100px;
+  height: 35px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+}
+</style>
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  console.log("drag ");
+  console.log(ev)
+  console.log(ev.target)
+  console.log(ev.target.tagName)
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  console.log("drop "  + data);
+  console.log(ev)
+  console.log(ev.target)
+  console.log(ev.target.tagName)
+
+  if (ev.target.tagName === "DIV") {
+    ev.target.appendChild(document.getElementById(data));
+  }
+
+  if (ev.target.tagName === "TD") {
+    ev.target.parentNode.parentNode.appendChild(document.getElementById(data));
+  }
+}
+</script>
+</head>
+<body>
+
+  <div style="position:relative; display:block;">
+    <h2>Drag and Drop</h2>
+<p>Drag the image back and forth between the two div elements.</p>
+
+<div id="div1" class="test" ondrop="drop(event)" ondragover="allowDrop(event)">
+  <img src="img_w3slogo.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
+</div>
+
+<div id="div2" class="test" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+<div id="div3" class="test"></div>
+
+
+
+</div>
+
+
+<div style="position:relative; display:block;">
+  <br/>
+  <table id="demo" >
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Details</th></tr>
+    </thead>
+    <tbody class="sort">
+      <tr id="1" data-id_objet="1112"><td>1</td><td>Name1</td><td>Details1</td></tr>
+      <tr id="2" data-id_objet="1113"><td>2</td><td>Name1</td><td>Details2</td></tr>
+      <tr id="3" data-id_objet="1114"><td>3</td><td>Name1</td><td>Details3</td></tr>
+      <tr id="4" data-id_objet="1115"><td>4</td><td>Name1</td><td>Details4</td></tr>
+    </tbody>
+  </table>
+  
+  <table id="demo2" >
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Details</th></tr>
+    </thead>
+    <tbody class="sort">
+      <tr id="d1" data-id_objet="1112"><td>1</td><td>Name1</td><td>Details d1</td></tr>
+      <tr id="d2" data-id_objet="1113"><td>2</td><td>Name1</td><td>Details d2</td></tr>
+      <tr id="d3" data-id_objet="1114"><td>3</td><td>Name1</td><td>Details d3</td></tr>
+      <tr id="d4" data-id_objet="1115"><td>4</td><td>Name1</td><td>Details d4</td></tr>
+    </tbody>
+  </table>
+  
+</div>
+
+<script>
+
+  
+</script>
+
+</body>
+</html>
